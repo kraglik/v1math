@@ -1,4 +1,6 @@
 target_sources(v1math
     PRIVATE
-        vec2f.c
+        vector_float_basic_ops.c
+        vector_integer_basic_ops.c
+        advanced_vector_ops.c
 )

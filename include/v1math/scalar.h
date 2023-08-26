@@ -1,6 +1,8 @@
 #ifndef V1MATH_SCALAR_H
 #define V1MATH_SCALAR_H
 
+#include <stdlib.h>
+
 void fadd_aa_vectorized(const float* a, const float* b, float* out, size_t n);
 void iadd_aa_vectorized(const int* a, const int* b, int* out, size_t n);
 
