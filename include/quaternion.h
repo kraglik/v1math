@@ -1,0 +1,4 @@
+#ifndef V1MATH_QUATERNION_H
+#define V1MATH_QUATERNION_H
+
+#endif

@@ -1,4 +1,4 @@
-target_sources(v1math
-    PRIVATE
-        library.c
-)
+add_subdirectory(scalar)
+add_subdirectory(vector)
+add_subdirectory(matrix)
+add_subdirectory(quaternion)
