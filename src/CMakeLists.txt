@@ -1,4 +1,5 @@
 add_subdirectory(scalar)
 add_subdirectory(vector)
+add_subdirectory(vector_array)
 add_subdirectory(matrix)
 add_subdirectory(quaternion)
