@@ -7,20 +7,20 @@
 
 // Floating point vectors
 
-typedef struct vector2f_array {
+typedef struct __attribute__((aligned(16))) vector2f_array {
     float* x;
     float* y;
     size_t size;
 } t_vec2f_array;
 
-typedef struct vector3f_array {
+typedef struct __attribute__((aligned(16))) vector3f_array {
     float* x;
     float* y;
     float* z;
     size_t size;
 } t_vec3f_array;
 
-typedef struct vector4f_array {
+typedef struct __attribute__((aligned(16))) vector4f_array {
     float* x;
     float* y;
     float* z;
@@ -30,20 +30,20 @@ typedef struct vector4f_array {
 
 // Integer vectors
 
-typedef struct vector2i_array {
+typedef struct __attribute__((aligned(16))) vector2i_array {
     int* x;
     int* y;
     size_t size;
 } t_vec2i_array;
 
-typedef struct vector3i_array {
+typedef struct __attribute__((aligned(16))) vector3i_array {
     int* x;
     int* y;
     int* z;
     size_t size;
 } t_vec3i_array;
 
-typedef struct vector4i_array {
+typedef struct __attribute__((aligned(16))) vector4i_array {
     int* x;
     int* y;
     int* z;

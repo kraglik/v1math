@@ -6,112 +6,76 @@
 
 // Matrix structures
 
-typedef struct matrix2f_column_major {
-    float col_1[2];
-    float col_2[2];
+typedef struct __attribute__((aligned(16))) matrix2f_column_major {
+    float cols[2][2];
 } t_mat2f_cm;
 
-typedef struct matrix2f_row_major {
-    float row_1[2];
-    float row_2[2];
+typedef struct __attribute__((aligned(16))) matrix2f_row_major {
+    float rows[2][2];
 } t_mat2f_rm;
 
-typedef struct matrix3f_column_major {
-    float col_1[4];
-    float col_2[4];
-    float col_3[4];
+typedef struct __attribute__((aligned(16))) matrix3f_column_major {
+    float cols[3][4];
 } t_mat3f_cm;
 
-typedef struct matrix3f_row_major {
-    float row_1[4];
-    float row_2[4];
-    float row_3[4];
+typedef struct __attribute__((aligned(16))) matrix3f_row_major {
+    float rows[3][4];
 } t_mat3f_rm;
 
-typedef struct matrix4f_column_major {
-    float col_1[4];
-    float col_2[4];
-    float col_3[4];
-    float col_4[4];
+typedef struct __attribute__((aligned(16))) matrix4f_column_major {
+    float cols[4][4];
 } t_mat4f_cm;
 
-typedef struct matrix4f_row_major {
-    float row_1[4];
-    float row_2[4];
-    float row_3[4];
-    float row_4[4];
+typedef struct __attribute__((aligned(16))) matrix4f_row_major {
+    float rows[4][4];
 } t_mat4f_rm;
 
-typedef struct matrix3x2f_column_major {
-    float col_1[4];
-    float col_2[4];
+typedef struct __attribute__((aligned(16))) matrix3x2f_column_major {
+    float cols[2][4];
 } t_mat3x2f_cm;
 
-typedef struct matrix3x2f_row_major {
-    float row_1[2];
-    float row_2[2];
-    float row_3[2];
+typedef struct __attribute__((aligned(16))) matrix3x2f_row_major {
+    float rows[3][2];
 } t_mat3x2f_rm;
 
-typedef struct matrix3x4f_column_major {
-    float col_1[4];
-    float col_2[4];
-    float col_3[4];
-    float col_4[4];
+typedef struct __attribute__((aligned(16))) matrix3x4f_column_major {
+    float cols[4][4];
 } t_mat3x4f_cm;
 
-typedef struct matrix3x4f_row_major {
-    float row_1[4];
-    float row_2[4];
-    float row_3[4];
+typedef struct __attribute__((aligned(16))) matrix3x4f_row_major {
+    float rows[3][4];
 } t_mat3x4f_rm;
 
-typedef struct matrix4x2f_column_major {
-    float col_1[4];
-    float col_2[4];
+typedef struct __attribute__((aligned(16))) matrix4x2f_column_major {
+    float cols[2][4];
 } t_mat4x2f_cm;
 
-typedef struct matrix4x2f_row_major {
-    float row_1[2];
-    float row_2[2];
-    float row_3[2];
-    float row_4[2];
+typedef struct __attribute__((aligned(16))) matrix4x2f_row_major {
+    float rows[4][2];
 } t_mat4x2f_rm;
 
-typedef struct matrix4x3f_column_major {
-    float col_1[4];
-    float col_2[4];
-    float col_3[4];
+typedef struct __attribute__((aligned(16))) matrix4x3f_column_major {
+    float cols[3][4];
 } t_mat4x3f_cm;
 
-typedef struct matrix4x3f_row_major {
-    float row_1[4];
-    float row_2[4];
-    float row_3[4];
-    float row_4[4];
+typedef struct __attribute__((aligned(16))) matrix4x3f_row_major {
+    float rows[4][4];
 } t_mat4x3f_rm;
 
-typedef struct matrix2x3f_column_major {
-    float col_1[2];
-    float col_2[2];
-    float col_3[2];
+typedef struct __attribute__((aligned(16))) matrix2x3f_column_major {
+    float cols[3][2];
 } t_mat2x3f_cm;
 
-typedef struct matrix2x3f_row_major {
-    float row_1[4];
-    float row_2[4];
+typedef struct __attribute__((aligned(16))) matrix2x3f_row_major {
+    float rows[2][4];
 } t_mat2x3f_rm;
 
-typedef struct matrix2x4f_column_major {
-    float col_1[2];
-    float col_2[2];
-    float col_3[2];
-    float col_4[2];
+typedef struct __attribute__((aligned(16))) matrix2x4f_column_major {
+    float cols[4][2];
 } t_mat2x4f_cm;
 
-typedef struct matrix2x4f_row_major {
-    float row_1[4];
-    float row_2[4];
+typedef struct __attribute__((aligned(16))) matrix2x4f_row_major {
+    float rows[2][4];
 } t_mat2x4f_rm;
 
 // Functions
@@ -261,87 +225,111 @@ void mat4x3f_3x4f_rm_multiply_mm(const t_mat4x3f_rm* a, const t_mat3x4f_rm* b, t
 
 // Matrix-vector multiplication
 
-void mat2f_cm_multiply_vm(const t_mat2f_cm* a, const t_vec2f* b, t_vec2f* out, size_t n);
-void mat3f_cm_multiply_vm(const t_mat3f_cm* a, const t_vec3f* b, t_vec3f* out, size_t n);
-void mat4f_cm_multiply_vm(const t_mat4f_cm* a, const t_vec4f* b, t_vec4f* out, size_t n);
+void mat2f_cm_multiply_mv_vectorized(const t_mat2f_cm* a, const t_vec2f* b, t_vec2f* out, size_t n);
+void mat3f_cm_multiply_mv_vectorized(const t_mat3f_cm* a, const t_vec3f* b, t_vec3f* out, size_t n);
+void mat4f_cm_multiply_mv_vectorized(const t_mat4f_cm* a, const t_vec4f* b, t_vec4f* out, size_t n);
 
-void mat2f_rm_multiply_vm(const t_mat2f_rm* a, const t_vec2f* b, t_vec2f* out, size_t n);
-void mat3f_rm_multiply_vm(const t_mat3f_rm* a, const t_vec3f* b, t_vec3f* out, size_t n);
-void mat4f_rm_multiply_vm(const t_mat4f_rm* a, const t_vec4f* b, t_vec4f* out, size_t n);
+void mat2f_rm_multiply_mv_vectorized(const t_mat2f_rm* a, const t_vec2f* b, t_vec2f* out, size_t n);
+void mat3f_rm_multiply_mv_vectorized(const t_mat3f_rm* a, const t_vec3f* b, t_vec3f* out, size_t n);
+void mat4f_rm_multiply_mv_vectorized(const t_mat4f_rm* a, const t_vec4f* b, t_vec4f* out, size_t n);
 
-void mat2x3f_cm_multiply_vm(const t_mat2x3f_cm* a, const t_vec3f* b, t_vec2f* out, size_t n);
-void mat2x4f_cm_multiply_vm(const t_mat2x4f_cm* a, const t_vec4f* b, t_vec2f* out, size_t n);
+void mat2x3f_cm_multiply_mv_vectorized(const t_mat2x3f_cm* a, const t_vec3f* b, t_vec2f* out, size_t n);
+void mat2x4f_cm_multiply_mv_vectorized(const t_mat2x4f_cm* a, const t_vec4f* b, t_vec2f* out, size_t n);
 
-void mat3x2f_cm_multiply_vm(const t_mat3x2f_cm* a, const t_vec2f* b, t_vec3f* out, size_t n);
-void mat3x4f_cm_multiply_vm(const t_mat3x4f_cm* a, const t_vec4f* b, t_vec3f* out, size_t n);
+void mat3x2f_cm_multiply_mv_vectorized(const t_mat3x2f_cm* a, const t_vec2f* b, t_vec3f* out, size_t n);
+void mat3x4f_cm_multiply_mv_vectorized(const t_mat3x4f_cm* a, const t_vec4f* b, t_vec3f* out, size_t n);
 
-void mat4x2f_cm_multiply_vm(const t_mat4x2f_cm* a, const t_vec2f* b, t_vec4f* out, size_t n);
-void mat4x3f_cm_multiply_vm(const t_mat4x3f_cm* a, const t_vec3f* b, t_vec4f* out, size_t n);
+void mat4x2f_cm_multiply_mv_vectorized(const t_mat4x2f_cm* a, const t_vec2f* b, t_vec4f* out, size_t n);
+void mat4x3f_cm_multiply_mv_vectorized(const t_mat4x3f_cm* a, const t_vec3f* b, t_vec4f* out, size_t n);
 
-void mat2x3f_rm_multiply_vm(const t_mat2x3f_rm* a, const t_vec3f* b, t_vec2f* out, size_t n);
-void mat2x4f_rm_multiply_vm(const t_mat2x4f_rm* a, const t_vec4f* b, t_vec2f* out, size_t n);
+void mat2x3f_rm_multiply_mv_vectorized(const t_mat2x3f_rm* a, const t_vec3f* b, t_vec2f* out, size_t n);
+void mat2x4f_rm_multiply_mv_vectorized(const t_mat2x4f_rm* a, const t_vec4f* b, t_vec2f* out, size_t n);
 
-void mat3x2f_rm_multiply_vm(const t_mat3x2f_rm* a, const t_vec2f* b, t_vec3f* out, size_t n);
-void mat3x4f_rm_multiply_vm(const t_mat3x4f_rm* a, const t_vec4f* b, t_vec3f* out, size_t n);
+void mat3x2f_rm_multiply_mv_vectorized(const t_mat3x2f_rm* a, const t_vec2f* b, t_vec3f* out, size_t n);
+void mat3x4f_rm_multiply_mv_vectorized(const t_mat3x4f_rm* a, const t_vec4f* b, t_vec3f* out, size_t n);
 
-void mat4x2f_rm_multiply_vm(const t_mat4x2f_rm* a, const t_vec2f* b, t_vec4f* out, size_t n);
-void mat4x3f_rm_multiply_vm(const t_mat4x3f_rm* a, const t_vec3f* b, t_vec4f* out, size_t n);
+void mat4x2f_rm_multiply_mv_vectorized(const t_mat4x2f_rm* a, const t_vec2f* b, t_vec4f* out, size_t n);
+void mat4x3f_rm_multiply_mv_vectorized(const t_mat4x3f_rm* a, const t_vec3f* b, t_vec4f* out, size_t n);
 
-// Matrix-scalar multiplication
+t_vec2f mat2f_cm_multiply_mv(const t_mat2f_cm* a, const t_vec2f* b);
+t_vec3f mat3f_cm_multiply_mv(const t_mat3f_cm* a, const t_vec3f* b);
+t_vec4f mat4f_cm_multiply_mv(const t_mat4f_cm* a, const t_vec4f* b);
 
-void mat2f_cm_multiply_sm(const t_mat2f_cm* a, float b, t_mat2f_cm* out, size_t n);
-void mat3f_cm_multiply_sm(const t_mat3f_cm* a, float b, t_mat3f_cm* out, size_t n);
-void mat4f_cm_multiply_sm(const t_mat4f_cm* a, float b, t_mat4f_cm* out, size_t n);
+t_vec2f mat2f_rm_multiply_mv(const t_mat2f_rm* a, const t_vec2f* b);
+t_vec3f mat3f_rm_multiply_mv(const t_mat3f_rm* a, const t_vec3f* b);
+t_vec4f mat4f_rm_multiply_mv(const t_mat4f_rm* a, const t_vec4f* b);
 
-void mat2f_rm_multiply_sm(const t_mat2f_rm* a, float b, t_mat2f_rm* out, size_t n);
-void mat3f_rm_multiply_sm(const t_mat3f_rm* a, float b, t_mat3f_rm* out, size_t n);
-void mat4f_rm_multiply_sm(const t_mat4f_rm* a, float b, t_mat4f_rm* out, size_t n);
+t_vec2f mat2x3f_cm_multiply_mv(const t_mat2x3f_cm* a, const t_vec3f* b);
+t_vec2f mat2x4f_cm_multiply_mv(const t_mat2x4f_cm* a, const t_vec4f* b);
 
-void mat2x3f_cm_multiply_sm(const t_mat2x3f_cm* a, float b, t_mat2x3f_cm* out, size_t n);
-void mat2x4f_cm_multiply_sm(const t_mat2x4f_cm* a, float b, t_mat2x4f_cm* out, size_t n);
+t_vec3f mat3x2f_cm_multiply_mv(const t_mat3x2f_cm* a, const t_vec2f* b);
+t_vec3f mat3x4f_cm_multiply_mv(const t_mat3x4f_cm* a, const t_vec4f* b);
 
-void mat3x2f_cm_multiply_sm(const t_mat3x2f_cm* a, float b, t_mat3x2f_cm* out, size_t n);
-void mat3x4f_cm_multiply_sm(const t_mat3x4f_cm* a, float b, t_mat3x4f_cm* out, size_t n);
+t_vec4f mat4x2f_cm_multiply_mv(const t_mat4x2f_cm* a, const t_vec2f* b);
+t_vec4f mat4x3f_cm_multiply_mv(const t_mat4x3f_cm* a, const t_vec3f* b);
 
-void mat4x2f_cm_multiply_sm(const t_mat4x2f_cm* a, float b, t_mat4x2f_cm* out, size_t n);
-void mat4x3f_cm_multiply_sm(const t_mat4x3f_cm* a, float b, t_mat4x3f_cm* out, size_t n);
+t_vec2f mat2x3f_rm_multiply_mv(const t_mat2x3f_rm* a, const t_vec3f* b);
+t_vec2f mat2x4f_rm_multiply_mv(const t_mat2x4f_rm* a, const t_vec4f* b);
 
-void mat2x3f_rm_multiply_sm(const t_mat2x3f_rm* a, float b, t_mat2x3f_rm* out, size_t n);
-void mat2x4f_rm_multiply_sm(const t_mat2x4f_rm* a, float b, t_mat2x4f_rm* out, size_t n);
+t_vec3f mat3x2f_rm_multiply_mv(const t_mat3x2f_rm* a, const t_vec2f* b);
+t_vec3f mat3x4f_rm_multiply_mv(const t_mat3x4f_rm* a, const t_vec4f* b);
 
-void mat3x2f_rm_multiply_sm(const t_mat3x2f_rm* a, float b, t_mat3x2f_rm* out, size_t n);
-void mat3x4f_rm_multiply_sm(const t_mat3x4f_rm* a, float b, t_mat3x4f_rm* out, size_t n);
+t_vec4f mat4x2f_rm_multiply_mv(const t_mat4x2f_rm* a, const t_vec2f* b);
+t_vec4f mat4x3f_rm_multiply_mv(const t_mat4x3f_rm* a, const t_vec3f* b);
 
-void mat4x2f_rm_multiply_sm(const t_mat4x2f_rm* a, float b, t_mat4x2f_rm* out, size_t n);
-void mat4x3f_rm_multiply_sm(const t_mat4x3f_rm* a, float b, t_mat4x3f_rm* out, size_t n);
+// Vector-matrix multiplication
 
-// Matrix-scalar array multiplication
+void mat2f_cm_multiply_vm_vectorized(const t_vec2f* a, const t_mat2f_cm* b, t_vec2f* out, size_t n);
+void mat3f_cm_multiply_vm_vectorized(const t_vec3f* a, const t_mat3f_cm* b, t_vec3f* out, size_t n);
+void mat4f_cm_multiply_vm_vectorized(const t_vec4f* a, const t_mat4f_cm* b, t_vec4f* out, size_t n);
 
-void mat2f_cm_multiply_am(const t_mat2f_cm* a, const float* b, t_mat2f_cm* out, size_t n);
-void mat3f_cm_multiply_am(const t_mat3f_cm* a, const float* b, t_mat3f_cm* out, size_t n);
-void mat4f_cm_multiply_am(const t_mat4f_cm* a, const float* b, t_mat4f_cm* out, size_t n);
+void mat2f_rm_multiply_vm_vectorized(const t_vec2f* a, const t_mat2f_rm* b, t_vec2f* out, size_t n);
+void mat3f_rm_multiply_vm_vectorized(const t_vec3f* a, const t_mat3f_rm* b, t_vec3f* out, size_t n);
+void mat4f_rm_multiply_vm_vectorized(const t_vec4f* a, const t_mat4f_rm* b, t_vec4f* out, size_t n);
 
-void mat2f_rm_multiply_am(const t_mat2f_rm* a, float* b, t_mat2f_rm* out, size_t n);
-void mat3f_rm_multiply_am(const t_mat3f_rm* a, float* b, t_mat3f_rm* out, size_t n);
-void mat4f_rm_multiply_am(const t_mat4f_rm* a, float* b, t_mat4f_rm* out, size_t n);
+void mat2x3f_cm_multiply_vm_vectorized(const t_vec3f* a, const t_mat2x3f_cm* b, t_vec3f* out, size_t n);
+void mat2x4f_cm_multiply_vm_vectorized(const t_vec4f* a, const t_mat2x4f_cm* b, t_vec4f* out, size_t n);
 
-void mat2x3f_cm_multiply_am(const t_mat2x3f_cm* a, const float* b, t_mat2x3f_cm* out, size_t n);
-void mat2x4f_cm_multiply_am(const t_mat2x4f_cm* a, const float* b, t_mat2x4f_cm* out, size_t n);
+void mat3x2f_cm_multiply_vm_vectorized(const t_vec2f* a, const t_mat3x2f_cm* b, t_vec2f* out, size_t n);
+void mat3x4f_cm_multiply_vm_vectorized(const t_vec4f* a, const t_mat3x4f_cm* b, t_vec4f* out, size_t n);
 
-void mat3x2f_cm_multiply_am(const t_mat3x2f_cm* a, const float* b, t_mat3x2f_cm* out, size_t n);
-void mat3x4f_cm_multiply_am(const t_mat3x4f_cm* a, const float* b, t_mat3x4f_cm* out, size_t n);
+void mat4x2f_cm_multiply_vm_vectorized(const t_vec2f* a, const t_mat4x2f_cm* b, t_vec2f* out, size_t n);
+void mat4x3f_cm_multiply_vm_vectorized(const t_vec3f* a, const t_mat4x3f_cm* b, t_vec3f* out, size_t n);
 
-void mat4x2f_cm_multiply_am(const t_mat4x2f_cm* a, const float* b, t_mat4x2f_cm* out, size_t n);
-void mat4x3f_cm_multiply_am(const t_mat4x3f_cm* a, const float* b, t_mat4x3f_cm* out, size_t n);
+void mat2x3f_rm_multiply_vm_vectorized(const t_vec3f* a, const t_mat2x3f_rm* b, t_vec3f* out, size_t n);
+void mat2x4f_rm_multiply_vm_vectorized(const t_vec4f* a, const t_mat2x4f_rm* b, t_vec4f* out, size_t n);
 
-void mat2x3f_rm_multiply_am(const t_mat2x3f_rm* a, const float* b, t_mat2x3f_rm* out, size_t n);
-void mat2x4f_rm_multiply_am(const t_mat2x4f_rm* a, const float* b, t_mat2x4f_rm* out, size_t n);
+void mat3x2f_rm_multiply_vm_vectorized(const t_vec2f* a, const t_mat3x2f_rm* b, t_vec2f* out, size_t n);
+void mat3x4f_rm_multiply_vm_vectorized(const t_vec4f* a, const t_mat3x4f_rm* b, t_vec4f* out, size_t n);
 
-void mat3x2f_rm_multiply_am(const t_mat3x2f_rm* a, const float* b, t_mat3x2f_rm* out, size_t n);
-void mat3x4f_rm_multiply_am(const t_mat3x4f_rm* a, const float* b, t_mat3x4f_rm* out, size_t n);
+void mat4x2f_rm_multiply_vm_vectorized(const t_vec2f* a, const t_mat4x2f_rm* b, t_vec2f* out, size_t n);
+void mat4x3f_rm_multiply_vm_vectorized(const t_vec3f* a, const t_mat4x3f_rm* b, t_vec3f* out, size_t n);
 
-void mat4x2f_rm_multiply_am(const t_mat4x2f_rm* a, const float* b, t_mat4x2f_rm* out, size_t n);
-void mat4x3f_rm_multiply_am(const t_mat4x3f_rm* a, const float* b, t_mat4x3f_rm* out, size_t n);
+t_vec2f mat2f_cm_multiply_vm(const t_vec2f* a, const t_mat2f_cm* b);
+t_vec3f mat3f_cm_multiply_vm(const t_vec3f* a, const t_mat3f_cm* b);
+t_vec4f mat4f_cm_multiply_vm(const t_vec4f* a, const t_mat4f_cm* b);
+
+t_vec2f mat2f_rm_multiply_vm(const t_vec2f* a, const t_mat2f_rm* b);
+t_vec3f mat3f_rm_multiply_vm(const t_vec3f* a, const t_mat3f_rm* b);
+t_vec4f mat4f_rm_multiply_vm(const t_vec4f* a, const t_mat4f_rm* b);
+
+t_vec3f mat2x3f_cm_multiply_vm(const t_vec2f* a, const t_mat2x3f_cm* b);
+t_vec4f mat2x4f_cm_multiply_vm(const t_vec2f* a, const t_mat2x4f_cm* b);
+
+t_vec2f mat3x2f_cm_multiply_vm(const t_vec3f* a, const t_mat3x2f_cm* b);
+t_vec4f mat3x4f_cm_multiply_vm(const t_vec3f* a, const t_mat3x4f_cm* b);
+
+t_vec2f mat4x2f_cm_multiply_vm(const t_vec4f* a, const t_mat4x2f_cm* b);
+t_vec3f mat4x3f_cm_multiply_vm(const t_vec4f* a, const t_mat4x3f_cm* b);
+
+t_vec3f mat2x3f_rm_multiply_vm(const t_vec2f* a, const t_mat2x3f_rm* b);
+t_vec4f mat2x4f_rm_multiply_vm(const t_vec2f* a, const t_mat2x4f_rm* b);
+
+t_vec2f mat3x2f_rm_multiply_vm(const t_vec3f* a, const t_mat3x2f_rm* b);
+t_vec4f mat3x4f_rm_multiply_vm(const t_vec3f* a, const t_mat3x4f_rm* b);
+
+t_vec2f mat4x2f_rm_multiply_vm(const t_vec4f* a, const t_mat4x2f_rm* b);
+t_vec3f mat4x3f_rm_multiply_vm(const t_vec4f* a, const t_mat4x3f_rm* b);
 
 // Transpose
 
@@ -419,6 +407,30 @@ void mat3x4f_rm_add_mm(const t_mat3x4f_rm* a, const t_mat3x4f_rm* b, t_mat3x4f_r
 void mat4x2f_rm_add_mm(const t_mat4x2f_rm* a, const t_mat4x2f_rm* b, t_mat4x2f_rm* out, size_t n);
 void mat4x3f_rm_add_mm(const t_mat4x3f_rm* a, const t_mat4x3f_rm* b, t_mat4x3f_rm* out, size_t n);
 
+void mat2f_cm_add_ma(const t_mat2f_cm* a, const float* b, t_mat2f_cm* out, size_t n);
+void mat3f_cm_add_ma(const t_mat3f_cm* a, const float* b, t_mat3f_cm* out, size_t n);
+void mat4f_cm_add_ma(const t_mat4f_cm* a, const float* b, t_mat4f_cm* out, size_t n);
+
+void mat2f_rm_add_ma(const t_mat2f_rm* a, const float* b, t_mat2f_rm* out, size_t n);
+void mat3f_rm_add_ma(const t_mat3f_rm* a, const float* b, t_mat3f_rm* out, size_t n);
+void mat4f_rm_add_ma(const t_mat4f_rm* a, const float* b, t_mat4f_rm* out, size_t n);
+
+void mat2x3f_cm_add_ma(const t_mat2x3f_cm* a, const float* b, t_mat2x3f_cm* out, size_t n);
+void mat2x4f_cm_add_ma(const t_mat2x4f_cm* a, const float* b, t_mat2x4f_cm* out, size_t n);
+void mat3x2f_cm_add_ma(const t_mat3x2f_cm* a, const float* b, t_mat3x2f_cm* out, size_t n);
+
+void mat3x4f_cm_add_ma(const t_mat3x4f_cm* a, const float* b, t_mat3x4f_cm* out, size_t n);
+void mat4x2f_cm_add_ma(const t_mat4x2f_cm* a, const float* b, t_mat4x2f_cm* out, size_t n);
+void mat4x3f_cm_add_ma(const t_mat4x3f_cm* a, const float* b, t_mat4x3f_cm* out, size_t n);
+
+void mat2x3f_rm_add_ma(const t_mat2x3f_rm* a, const float* b, t_mat2x3f_rm* out, size_t n);
+void mat2x4f_rm_add_ma(const t_mat2x4f_rm* a, const float* b, t_mat2x4f_rm* out, size_t n);
+void mat3x2f_rm_add_ma(const t_mat3x2f_rm* a, const float* b, t_mat3x2f_rm* out, size_t n);
+
+void mat3x4f_rm_add_ma(const t_mat3x4f_rm* a, const float* b, t_mat3x4f_rm* out, size_t n);
+void mat4x2f_rm_add_ma(const t_mat4x2f_rm* a, const float* b, t_mat4x2f_rm* out, size_t n);
+void mat4x3f_rm_add_ma(const t_mat4x3f_rm* a, const float* b, t_mat4x3f_rm* out, size_t n);
+
 // Subtraction
 
 void mat2f_cm_subtract_mm(const t_mat2f_cm* a, const t_mat2f_cm* b, t_mat2f_cm* out, size_t n);
@@ -445,6 +457,30 @@ void mat3x4f_rm_subtract_mm(const t_mat3x4f_rm* a, const t_mat3x4f_rm* b, t_mat3
 void mat4x2f_rm_subtract_mm(const t_mat4x2f_rm* a, const t_mat4x2f_rm* b, t_mat4x2f_rm* out, size_t n);
 void mat4x3f_rm_subtract_mm(const t_mat4x3f_rm* a, const t_mat4x3f_rm* b, t_mat4x3f_rm* out, size_t n);
 
+void mat2f_cm_subtract_ma(const t_mat2f_cm* a, const float* b, t_mat2f_cm* out, size_t n);
+void mat3f_cm_subtract_ma(const t_mat3f_cm* a, const float* b, t_mat3f_cm* out, size_t n);
+void mat4f_cm_subtract_ma(const t_mat4f_cm* a, const float* b, t_mat4f_cm* out, size_t n);
+
+void mat2f_rm_subtract_ma(const t_mat2f_rm* a, const float* b, t_mat2f_rm* out, size_t n);
+void mat3f_rm_subtract_ma(const t_mat3f_rm* a, const float* b, t_mat3f_rm* out, size_t n);
+void mat4f_rm_subtract_ma(const t_mat4f_rm* a, const float* b, t_mat4f_rm* out, size_t n);
+
+void mat2x3f_cm_subtract_ma(const t_mat2x3f_cm* a, const float* b, t_mat2x3f_cm* out, size_t n);
+void mat2x4f_cm_subtract_ma(const t_mat2x4f_cm* a, const float* b, t_mat2x4f_cm* out, size_t n);
+void mat3x2f_cm_subtract_ma(const t_mat3x2f_cm* a, const float* b, t_mat3x2f_cm* out, size_t n);
+
+void mat3x4f_cm_subtract_ma(const t_mat3x4f_cm* a, const float* b, t_mat3x4f_cm* out, size_t n);
+void mat4x2f_cm_subtract_ma(const t_mat4x2f_cm* a, const float* b, t_mat4x2f_cm* out, size_t n);
+void mat4x3f_cm_subtract_ma(const t_mat4x3f_cm* a, const float* b, t_mat4x3f_cm* out, size_t n);
+
+void mat2x3f_rm_subtract_ma(const t_mat2x3f_rm* a, const float* b, t_mat2x3f_rm* out, size_t n);
+void mat2x4f_rm_subtract_ma(const t_mat2x4f_rm* a, const float* b, t_mat2x4f_rm* out, size_t n);
+void mat3x2f_rm_subtract_ma(const t_mat3x2f_rm* a, const float* b, t_mat3x2f_rm* out, size_t n);
+
+void mat3x4f_rm_subtract_ma(const t_mat3x4f_rm* a, const float* b, t_mat3x4f_rm* out, size_t n);
+void mat4x2f_rm_subtract_ma(const t_mat4x2f_rm* a, const float* b, t_mat4x2f_rm* out, size_t n);
+void mat4x3f_rm_subtract_ma(const t_mat4x3f_rm* a, const float* b, t_mat4x3f_rm* out, size_t n);
+
 // Multiplication
 
 void mat2f_cm_elementwise_multiply_mm(const t_mat2f_cm* a, const t_mat2f_cm* b, t_mat2f_cm* out, size_t n);
@@ -469,6 +505,28 @@ void mat3x4f_rm_elementwise_multiply_mm(const t_mat3x4f_rm* a, const t_mat3x4f_r
 void mat4x2f_rm_elementwise_multiply_mm(const t_mat4x2f_rm* a, const t_mat4x2f_rm* b, t_mat4x2f_rm* out, size_t n);
 void mat4x3f_rm_elementwise_multiply_mm(const t_mat4x3f_rm* a, const t_mat4x3f_rm* b, t_mat4x3f_rm* out, size_t n);
 
+void mat2f_cm_elementwise_multiply_ma(const t_mat2f_cm* a, const float* b, t_mat2f_cm* out, size_t n);
+void mat3f_cm_elementwise_multiply_ma(const t_mat3f_cm* a, const float* b, t_mat3f_cm* out, size_t n);
+void mat4f_cm_elementwise_multiply_ma(const t_mat4f_cm* a, const float* b, t_mat4f_cm* out, size_t n);
+
+void mat2f_rm_elementwise_multiply_ma(const t_mat2f_rm* a, const float* b, t_mat2f_rm* out, size_t n);
+void mat3f_rm_elementwise_multiply_ma(const t_mat3f_rm* a, const float* b, t_mat3f_rm* out, size_t n);
+void mat4f_rm_elementwise_multiply_ma(const t_mat4f_rm* a, const float* b, t_mat4f_rm* out, size_t n);
+
+void mat2x3f_cm_elementwise_multiply_ma(const t_mat2x3f_cm* a, const float* b, t_mat2x3f_cm* out, size_t n);
+void mat2x4f_cm_elementwise_multiply_ma(const t_mat2x4f_cm* a, const float* b, t_mat2x4f_cm* out, size_t n);
+void mat3x2f_cm_elementwise_multiply_ma(const t_mat3x2f_cm* a, const float* b, t_mat3x2f_cm* out, size_t n);
+void mat3x4f_cm_elementwise_multiply_ma(const t_mat3x4f_cm* a, const float* b, t_mat3x4f_cm* out, size_t n);
+void mat4x2f_cm_elementwise_multiply_ma(const t_mat4x2f_cm* a, const float* b, t_mat4x2f_cm* out, size_t n);
+void mat4x3f_cm_elementwise_multiply_ma(const t_mat4x3f_cm* a, const float* b, t_mat4x3f_cm* out, size_t n);
+
+void mat2x3f_rm_elementwise_multiply_ma(const t_mat2x3f_rm* a, const float* b, t_mat2x3f_rm* out, size_t n);
+void mat2x4f_rm_elementwise_multiply_ma(const t_mat2x4f_rm* a, const float* b, t_mat2x4f_rm* out, size_t n);
+void mat3x2f_rm_elementwise_multiply_ma(const t_mat3x2f_rm* a, const float* b, t_mat3x2f_rm* out, size_t n);
+void mat3x4f_rm_elementwise_multiply_ma(const t_mat3x4f_rm* a, const float* b, t_mat3x4f_rm* out, size_t n);
+void mat4x2f_rm_elementwise_multiply_ma(const t_mat4x2f_rm* a, const float* b, t_mat4x2f_rm* out, size_t n);
+void mat4x3f_rm_elementwise_multiply_ma(const t_mat4x3f_rm* a, const float* b, t_mat4x3f_rm* out, size_t n);
+
 // Division
 
 void mat2f_cm_divide_mm(const t_mat2f_cm* a, const t_mat2f_cm* b, t_mat2f_cm* out, size_t n);
@@ -492,5 +550,27 @@ void mat3x2f_rm_divide_mm(const t_mat3x2f_rm* a, const t_mat3x2f_rm* b, t_mat3x2
 void mat3x4f_rm_divide_mm(const t_mat3x4f_rm* a, const t_mat3x4f_rm* b, t_mat3x4f_rm* out, size_t n);
 void mat4x2f_rm_divide_mm(const t_mat4x2f_rm* a, const t_mat4x2f_rm* b, t_mat4x2f_rm* out, size_t n);
 void mat4x3f_rm_divide_mm(const t_mat4x3f_rm* a, const t_mat4x3f_rm* b, t_mat4x3f_rm* out, size_t n);
+
+void mat2f_cm_divide_ma(const t_mat2f_cm* a, const float* b, t_mat2f_cm* out, size_t n);
+void mat3f_cm_divide_ma(const t_mat3f_cm* a, const float* b, t_mat3f_cm* out, size_t n);
+void mat4f_cm_divide_ma(const t_mat4f_cm* a, const float* b, t_mat4f_cm* out, size_t n);
+
+void mat2f_rm_divide_ma(const t_mat2f_rm* a, const float* b, t_mat2f_rm* out, size_t n);
+void mat3f_rm_divide_ma(const t_mat3f_rm* a, const float* b, t_mat3f_rm* out, size_t n);
+void mat4f_rm_divide_ma(const t_mat4f_rm* a, const float* b, t_mat4f_rm* out, size_t n);
+
+void mat2x3f_cm_divide_ma(const t_mat2x3f_cm* a, const float* b, t_mat2x3f_cm* out, size_t n);
+void mat2x4f_cm_divide_ma(const t_mat2x4f_cm* a, const float* b, t_mat2x4f_cm* out, size_t n);
+void mat3x2f_cm_divide_ma(const t_mat3x2f_cm* a, const float* b, t_mat3x2f_cm* out, size_t n);
+void mat3x4f_cm_divide_ma(const t_mat3x4f_cm* a, const float* b, t_mat3x4f_cm* out, size_t n);
+void mat4x2f_cm_divide_ma(const t_mat4x2f_cm* a, const float* b, t_mat4x2f_cm* out, size_t n);
+void mat4x3f_cm_divide_ma(const t_mat4x3f_cm* a, const float* b, t_mat4x3f_cm* out, size_t n);
+
+void mat2x3f_rm_divide_ma(const t_mat2x3f_rm* a, const float* b, t_mat2x3f_rm* out, size_t n);
+void mat2x4f_rm_divide_ma(const t_mat2x4f_rm* a, const float* b, t_mat2x4f_rm* out, size_t n);
+void mat3x2f_rm_divide_ma(const t_mat3x2f_rm* a, const float* b, t_mat3x2f_rm* out, size_t n);
+void mat3x4f_rm_divide_ma(const t_mat3x4f_rm* a, const float* b, t_mat3x4f_rm* out, size_t n);
+void mat4x2f_rm_divide_ma(const t_mat4x2f_rm* a, const float* b, t_mat4x2f_rm* out, size_t n);
+void mat4x3f_rm_divide_ma(const t_mat4x3f_rm* a, const float* b, t_mat4x3f_rm* out, size_t n);
 
 #endif

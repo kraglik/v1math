@@ -7,11 +7,11 @@
 
 // Floating point vectors
 
-typedef struct vector2f {
+typedef struct __attribute__((aligned(16))) vector2f {
     float x, y;
 } t_vec2f;
 
-typedef struct vector4f {
+typedef struct __attribute__((aligned(16))) vector4f {
     float x, y, z, w;
 } t_vec4f;
 
@@ -21,11 +21,11 @@ typedef struct __attribute__((aligned(sizeof(t_vec4f)))) vector3f {
 
 // Integer vectors
 
-typedef struct vector2i {
+typedef struct __attribute__((aligned(16))) vector2i {
     int x, y;
 } t_vec2i;
 
-typedef struct vector4i {
+typedef struct __attribute__((aligned(16))) vector4i {
     int x, y, z, w;
 } t_vec4i;
 
